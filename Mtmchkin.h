@@ -23,7 +23,7 @@ public:
 
     Mtmchkin(const Mtmchkin&) = delete;
     Mtmchkin& operator=(const Mtmchkin& other) = delete;
-    ~Mtmchkin();
+    ~Mtmchkin()=default;
 
     /*
     * Play the next Round of the game - according to the instruction in the exercise document.

@@ -11,24 +11,27 @@ using std::string;
 
 //class Exception : public std::exception{};
 
-class DeckFileNotFound : public Exception{
-    const char* what() const noexcept override {return "Deck File Error: File not found\n";}
+class DeckFileNotFound : public std::exception{
+    const char* what() const noexcept override {return "Deck File Error: File not found";}
 };
 
-class DeckFileFormatError : public Exception {
-private:
-    string m_numOfLine;
+class DeckFileFormatError : public std::exception
+{
+    std::string m_msg;
 public:
-    DeckFileFormatError(string& numOfLine) :
-            m_numOfLine(numOfLine) {}
-    const char *what() const noexcept override {
-        string s = "Deck File Error: File format error in line " + m_numOfLine;
-        return s.c_str();
-    };
+
+    DeckFileFormatError(const std::string& on)
+            : m_msg(std::string("Deck File Error: File format error in line ") + on)
+    {}
+
+    virtual const char* what() const throw()
+    {
+        return m_msg.c_str();
+    }
 };
 
-class DeckFileInvalidSize : public Exception{
-    const char* what() const noexcept override {return "Deck File Error: Deck size is invalid\n";}
+class DeckFileInvalidSize : public std::exception{
+    const char* what() const noexcept override {return "Deck File Error: Deck size is invalid";}
 };
 
 

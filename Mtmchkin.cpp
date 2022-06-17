@@ -17,6 +17,7 @@
 #include "Players/Fighter.h"
 #include "Exception.h"
 #include <fstream>
+#include <memory>
 using std::ifstream;
 using std::ofstream;
 using std::cin;
@@ -50,7 +51,7 @@ int indexOfCard(string str);
 std::shared_ptr<Card> intToCard(int i);
 std::shared_ptr<Player> intToPlayer(int i, string str, string type);
 bool checkNumber(string str);
-void printBack(Queue<Player*> queue, int& i);
+void printBack(Queue<std::shared_ptr<Player>> queue, int& i);
 
 Mtmchkin::Mtmchkin(const std::string fileName):
 m_roundCount(1)
@@ -234,7 +235,7 @@ bool Mtmchkin::isGameOver() const {
     return (m_winnersPlayers.size()+ m_losersPlayers.size()==m_numOfPlayers);
 }
 
-Mtmchkin::~Mtmchkin() {
+/*Mtmchkin::~Mtmchkin() {
     while(!m_losersPlayers.isEmpty())
     {
         delete m_losersPlayers.front();
@@ -260,7 +261,7 @@ Mtmchkin::~Mtmchkin() {
         delete m_playersQueue.front();
         m_playersQueue.popFront();
     }
-}
+}*/
 
 void Mtmchkin::printLeaderBoard() const {
     printLeaderBoardStartMessage();
