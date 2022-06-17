@@ -1,3 +1,8 @@
+#include <string>
+#include "Queue.h"
+#include "Players/Player.h"
+#include "Cards/Card.h"
+
 #ifndef MTMCHKIN_H_
 #define MTMCHKIN_H_
 
@@ -14,6 +19,11 @@ public:
     */
     Mtmchkin(const std::string fileName);
     
+
+    Mtmchkin(const Mtmchkin&) = delete;
+    Mtmchkin& operator=(const Mtmchkin& other) = delete;
+    ~Mtmchkin();
+
     /*
     * Play the next Round of the game - according to the instruction in the exercise document.
     *
@@ -46,6 +56,15 @@ public:
     *          int - number of rounds played
     */
     int getNumberOfRounds() const;
+
+private:
+    int m_roundCount;
+    int m_numOfPlayers;
+    Queue<Player*> m_losersPlayers;
+    Queue<Card*> m_cardsQueue;
+    Queue<Player*> m_playersQueue;
+    Queue<Player*> m_winnersPlayers;
+
 };
 
 
