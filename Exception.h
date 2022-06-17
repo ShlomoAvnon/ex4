@@ -9,7 +9,7 @@ using std::string;
 #ifndef MTMCHKIN_CPP_EXCEPTION_H
 #define MTMCHKIN_CPP_EXCEPTION_H
 
-class Exception : public std::exception{};
+//class Exception : public std::exception{};
 
 class DeckFileNotFound : public Exception{
     const char* what() const noexcept override {return "Deck File Error: File not found\n";}
