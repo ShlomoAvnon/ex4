@@ -47,8 +47,8 @@ const int MAX_PLAYERS = 6;
 const int NON_LOSERS_QUEUES = 2;
 
 int indexOfCard(string str);
-Card& intToCard(int i);
-Player& intToPlayer(int i, string str, string type);
+std::shared_ptr<Card> intToCard(int i);
+std::shared_ptr<Player> intToPlayer(int i, string str, string type);
 bool checkNumber(string str);
 void printBack(Queue<Player*> queue, int& i);
 
@@ -70,7 +70,7 @@ m_roundCount(1)
         std::string str = std::to_string(j);
         for(int i=0; i<NUM_OF_CARDS; i++){
             if(!CARDS_STR[i].compare(cardType)){
-                m_cardsQueue.pushBack(&intToCard(i));
+                m_cardsQueue.pushBack(intToCard(i));
                 break;
             }
             else if(i==NUM_OF_CARDS-1){
@@ -118,7 +118,7 @@ m_roundCount(1)
             } else {
                 for (int p = 0; p < NUM_OF_PLAYERS; ++p) {
                     if (!(PLAYERS_STR[p].compare(type))) {
-                        m_playersQueue.pushBack(&(intToPlayer(p, name, type)));
+                        m_playersQueue.pushBack((intToPlayer(p, name, type)));
                         isValidPlayer = true;
                         break;
                     }
@@ -134,60 +134,60 @@ m_roundCount(1)
 }
 
 
-Player& intToPlayer(int i, string name, string type)
+std::shared_ptr<Player> intToPlayer(int i, string name, string type)
 {
     switch (i) {
         case (ROGUE): {
-            Rogue *rogue = new Rogue(name, type);
-            return *rogue;
+            std::shared_ptr<Rogue> rogue (new Rogue(name, type));
+            return rogue;
         }
         case (WIZARD): {
-            Wizard *wizard = new Wizard(name, type);
-            return *wizard;
+            std::shared_ptr<Wizard> wizard(new Wizard(name, type));
+            return wizard;
         }
     }
     /// TO DO - what happening while the type of the card is non of them?
 
-    Fighter *fighter = new Fighter(name, type);
-    return *fighter;
+    std::shared_ptr<Fighter> fighter (new Fighter(name, type));
+    return fighter;
 }
 
-Card& intToCard(int i)
+std::shared_ptr<Card> intToCard(int i)
 {
     switch (i) {
         case (GOBLIN): {
-            Goblin *goblin = new Goblin();
-            return *goblin;
+           std::shared_ptr<Goblin> goblin(new Goblin());
+            return goblin;
         }
         case (VAMPIRE): {
-            Vampire *vampire = new Vampire();
-            return *vampire;
+            std::shared_ptr<Vampire> vampire (new Vampire());
+            return vampire;
         }
         case (DRAGON): {
-            Dragon *dragon = new Dragon();
-            return *dragon;
+            std::shared_ptr<Dragon> dragon (new Dragon());
+            return dragon;
         }
         case (MERCHANT): {
-            Merchant *merchant = new Merchant();
-            return *merchant;
+            std::shared_ptr<Merchant> merchant(new Merchant());
+            return merchant;
         }
         case (TREASURE): {
-            Treasure *treasure = new Treasure();
-            return *treasure;
+            std::shared_ptr<Treasure> treasure (new Treasure());
+            return treasure;
         }
         case (PITFALL): {
-            Pitfall *pitfall = new Pitfall();
-            return *pitfall;
+            std::shared_ptr<Pitfall> pitfall (new Pitfall());
+            return pitfall;
         }
         case (BARFIGHT): {
-            Barfight *barfight = new Barfight();
-            return *barfight;
+            std::shared_ptr<Barfight> barfight (new Barfight());
+            return barfight;
         }
     }
     /// TO DO - what happening while the type of the card is non of them?
 
-    Fairy *fairy = new Fairy();
-    return *fairy;
+    std::shared_ptr<Fairy> fairy(new Fairy());
+    return fairy;
 }
 
 
@@ -198,7 +198,7 @@ void Mtmchkin::playRound()
         printRoundStartMessage(m_roundCount);
         for (int j = 0; j < activePlayers; j++) {
             printTurnStartMessage(m_playersQueue.front()->getName());
-            Card *currentCard = m_cardsQueue.front();
+            std::shared_ptr<Card> currentCard = m_cardsQueue.front();
             currentCard->applyEncounter(*m_playersQueue.front());
             m_cardsQueue.popFront();
             m_cardsQueue.pushBack(currentCard);
@@ -252,7 +252,7 @@ Mtmchkin::~Mtmchkin() {
     }
     while(!m_winnersPlayers.isEmpty())
     {
-        delete m_winnersPlayers.front();
+       delete m_winnersPlayers.front();
         m_winnersPlayers.popFront();
     }
     while (!m_playersQueue.isEmpty())
@@ -265,7 +265,7 @@ Mtmchkin::~Mtmchkin() {
 void Mtmchkin::printLeaderBoard() const {
     printLeaderBoardStartMessage();
     int i=1;
-    Queue<Player*> tmpQueue = m_winnersPlayers;
+    Queue<std::shared_ptr<Player>> tmpQueue = m_winnersPlayers;
     for(int j = 0; j<NON_LOSERS_QUEUES; j++){
         while(!tmpQueue.isEmpty()){
             printPlayerLeaderBoard(i, *tmpQueue.front());
@@ -279,11 +279,11 @@ void Mtmchkin::printLeaderBoard() const {
 
 }
 
-void printBack(Queue<Player*> queue, int& i)
+void printBack(Queue<std::shared_ptr<Player>> queue, int& i)
 {
     if(queue.isEmpty())
         return;
-    Player* player = queue.front();
+    std::shared_ptr<Player> player = queue.front();
     queue.popFront();
     printBack(queue, i);
     printPlayerLeaderBoard(i, *player);

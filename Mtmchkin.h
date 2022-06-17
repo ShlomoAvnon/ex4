@@ -2,6 +2,7 @@
 #include "Queue.h"
 #include "Players/Player.h"
 #include "Cards/Card.h"
+#include <memory>
 
 #ifndef MTMCHKIN_H_
 #define MTMCHKIN_H_
@@ -60,10 +61,10 @@ public:
 private:
     int m_roundCount;
     int m_numOfPlayers;
-    Queue<Player*> m_losersPlayers;
-    Queue<Card*> m_cardsQueue;
-    Queue<Player*> m_playersQueue;
-    Queue<Player*> m_winnersPlayers;
+    Queue<std::shared_ptr<Player>> m_losersPlayers;
+    Queue<std::shared_ptr<Card>> m_cardsQueue;
+    Queue<std::shared_ptr<Player>> m_playersQueue;
+    Queue<std::shared_ptr<Player>> m_winnersPlayers;
 
 };
 
