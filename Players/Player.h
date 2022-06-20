@@ -47,6 +47,15 @@ public:
     */
     void levelUp();
 
+    /*
+     * levelUp - increase the level of the player by 1
+     *
+     * @param
+     * @return
+     *      void
+    */
+    void levelDown();
+
 
     /*
      * getLevel

@@ -19,7 +19,6 @@ public:
 
 private:
     Queue<std::shared_ptr<Card>> m_gangQueue;
-
 };
 
 

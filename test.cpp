@@ -120,7 +120,7 @@ void run_test(std::function<bool()> test, std::string test_name)
 
 bool cardsPrintsTest()
 {
-    
+
     Barfight junta;
     Dragon mushu;
     Fairy alizaMalek;
@@ -129,7 +129,7 @@ bool cardsPrintsTest()
     Pitfall moedB;
     Treasure factor;
     Vampire dracula;
-    cout << junta << std::endl << mushu << std::endl << alizaMalek   
+    cout << junta << std::endl << mushu << std::endl << alizaMalek
                     << std::endl << goblin  << std::endl << pizzaHut
                     << std::endl << moedB  << std::endl << factor
                     << std::endl << dracula;
@@ -208,6 +208,16 @@ bool nonMostersTest()
     string expectedOutputFilename("tests/noMonster_test_expected.txt");
     return GeneralGameSimulationTest(tmp_file, input, deck, expectedOutputFilename);
 }
+
+bool gangMostersTest()
+{
+    const string tmp_file("gangMonster_test");
+    string input("2\nRoi Wizard\nShlomo Rogue");
+    string deck("Gang\nVampire\nVampire\nGoblin\nEndGang");
+    string expectedOutputFilename("tests/gangMonster_test_expected.txt");
+    return GeneralGameSimulationTest(tmp_file, input, deck, expectedOutputFilename);
+}
+
 
 bool roundLimitTest()
 {
@@ -326,14 +336,15 @@ bool badFormatStartTest()
 // --------------------------------       Main function          ------------------------------
 
 int main(){
-    
+
 	run_test(cardsPrintsTest,"cardsPrintsTest");
 	run_test(testCard,"Deck creation test");
 	run_test(dragonDenTest,"Dragon Den simulation test");
 	run_test(goblinCaveTest,"Goblin Cave simulation test");
 	run_test(vampireLairTest,"Vampire Lair simulation test");
 	run_test(nonMostersTest,"Non monsters cards simulation test");
-	run_test(badFormatStartTest,"Bad format at start of file exception test");
+    //run_test(gangMostersTest,"Gang monsters cards simulation test");
+    run_test(badFormatStartTest,"Bad format at start of file exception test");
 	run_test(badFormatTest,"Bad format exception test");
 	run_test(noFileTest,"File Doesnt exist exception test");
 	run_test(badSizeTest,"Bad size exception test");

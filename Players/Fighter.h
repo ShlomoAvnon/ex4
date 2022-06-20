@@ -10,7 +10,7 @@
 
 class Fighter : public Player{
 public:
-    Fighter(const string name, const string type, int hp = MAX_HP, int force = STARTING_FORCE);
+    Fighter(const string name, const string type = "Fighter", int hp = MAX_HP, int force = STARTING_FORCE);
     int getAttackStrength() const override;
     ~Fighter() override =default;
 

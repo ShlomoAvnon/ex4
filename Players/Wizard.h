@@ -10,7 +10,7 @@
 
 class Wizard : public Player{
 public:
-    Wizard(const string name, const string type, int hp = MAX_HP, int force = STARTING_FORCE);
+    Wizard(const string name, const string type = "Wizard", int hp = MAX_HP, int force = STARTING_FORCE);
     void heal(int n) override;
     ~Wizard()=default;
 };

@@ -88,6 +88,7 @@ m_roundCount(1)
                         for (int k = 0; k < NUM_OF_MONSTERS; ++k) {
                             if(!CARDS_STR[k].compare(cardType)){
                                 gangQueue.pushBack(intToCard(k, gangQueue));
+                                break;
                             }
                             else if(k==NUM_OF_MONSTERS-1){
                                 throw DeckFileFormatError(strLineOfException);

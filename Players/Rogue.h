@@ -9,7 +9,7 @@
 
 class Rogue : public Player{
 public:
-    Rogue(const string name, const string type, int hp = MAX_HP, int force = STARTING_FORCE);
+    Rogue(const string name, const string type = "Rogue", int hp = MAX_HP, int force = STARTING_FORCE);
     void addCoins(int n) override;
     ~Rogue()=default;
 };

@@ -20,3 +20,23 @@ ostream &operator<<(ostream &os, const Card &card) {
 void Card::print(ostream &os) const {}
 
 void Card::applyEncounter(Player &player) const {}
+
+int Card::getForce() {
+    return m_stats.force;
+}
+
+int Card::getBuff() {
+    return m_stats.buff;
+}
+
+int Card::getHPLossOnDefeat() {
+    return m_stats.hpLossOnDefeat;
+}
+
+int Card::getLoot() {
+    return m_stats.loot;
+}
+
+string Card::getName() {
+    return m_name;
+}

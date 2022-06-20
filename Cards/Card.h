@@ -97,6 +97,16 @@ public:
 */
 virtual void applyEncounter(Player& player) const;
 
+int getForce();
+
+int getHPLossOnDefeat();
+
+int getBuff();
+
+int getLoot();
+
+string getName();
+
 protected:
     friend ostream & operator<<(ostream& os, const Card& card);
     virtual void print (ostream& os) const;
@@ -106,6 +116,7 @@ protected:
     string m_name;
     CardType m_effect;
     CardStats m_stats;
+
 private:
 
 
