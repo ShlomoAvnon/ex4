@@ -56,6 +56,8 @@ void printBack(Queue<std::shared_ptr<Player>> queue, int& i);
 Mtmchkin::Mtmchkin(const std::string fileName):
 m_roundCount(1)
 {
+    printStartGameMessage();
+
     ifstream source(fileName);
     string cardType;
     if(!source){
@@ -85,7 +87,6 @@ m_roundCount(1)
     //gets the team size
 
     string str_numOfPlayers;
-    printStartGameMessage();
     bool isValid;
     do {
         printEnterTeamSizeMessage();
