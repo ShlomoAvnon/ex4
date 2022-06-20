@@ -29,10 +29,6 @@ void Player::levelUp()
     }
 }
 
-void Player::levelDown() {
-    --m_level;
-}
-
 int Player::getLevel() const
 {
     return m_level;
