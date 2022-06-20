@@ -6,7 +6,7 @@
 #include "Wizard.h"
 
 Fairy::Fairy():
-        Card(CardType::Battle, CardStats(IRRELEVANT, IRRELEVANT, IRRELEVANT, F_HEAL, IRRELEVANT, IRRELEVANT), "Fairy")
+        Card(CardType::NoBattle, CardStats(IRRELEVANT, IRRELEVANT, IRRELEVANT, F_HEAL, IRRELEVANT, IRRELEVANT), "Fairy")
 {}
 
 void Fairy::applyEncounter(Player &player) const {

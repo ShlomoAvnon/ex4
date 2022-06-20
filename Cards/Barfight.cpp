@@ -6,7 +6,7 @@
 #include "Fighter.h"
 
 Barfight::Barfight():
-        Card(CardType::Battle, CardStats(IRRELEVANT, BF_HP_LOSS, IRRELEVANT, IRRELEVANT, IRRELEVANT, IRRELEVANT), "Barfight")
+        Card(CardType::NoBattle, CardStats(IRRELEVANT, BF_HP_LOSS, IRRELEVANT, IRRELEVANT, IRRELEVANT, IRRELEVANT), "Barfight")
 {}
 
 void Barfight::applyEncounter(Player &player) const {

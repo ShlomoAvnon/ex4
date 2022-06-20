@@ -138,7 +138,6 @@ public:
     */
     virtual int getAttackStrength() const;
 
-    string getType();
     string getName();
 
 protected:

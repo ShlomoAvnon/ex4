@@ -26,7 +26,7 @@ const int NOT_ENOUGH_MONEY = 0;
 
 
 Merchant::Merchant():
-        Card(CardType::Merchant, CardStats(IRRELEVANT, IRRELEVANT, IRRELEVANT, IRRELEVANT, IRRELEVANT), "Merchant")
+        Card(CardType::NoBattle, CardStats(IRRELEVANT, IRRELEVANT, IRRELEVANT, IRRELEVANT, IRRELEVANT), "Merchant")
 {}
 
 void Merchant::applyEncounter(Player &player) const {

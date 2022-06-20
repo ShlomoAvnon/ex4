@@ -12,6 +12,7 @@
 #include "Cards/Merchant.h"
 #include "Cards/Pitfall.h"
 #include "Cards/Treasure.h"
+#include "Cards/Gang.h"
 #include "Players/Rogue.h"
 #include "Players/Wizard.h"
 #include "Players/Fighter.h"
@@ -25,7 +26,7 @@ using std::cout;
 using std::endl;
 using std::getline;
 const int MAX_LENGTH = 16;
-const int NUM_OF_CARDS = 8;
+const int NUM_OF_CARDS = 9;
 const int GOBLIN = 0;
 const int VAMPIRE = 1;
 const int DRAGON = 2;
@@ -34,13 +35,16 @@ const int TREASURE = 4;
 const int PITFALL = 5;
 const int BARFIGHT = 6;
 const int FAIRY = 7;
+const int GANG = 8;
 const int ROGUE = 0;
 const int WIZARD = 1;
 const int FIGHTER = 2;
 const int MAX_CHARACTER = 15;
 const int NUM_OF_PLAYERS = 3;
+const int NUM_OF_MONSTERS = 3;
 const char SPACE = ' ';
-const string CARDS_STR[8] = {"Goblin", "Vampire", "Dragon", "Merchant", "Treasure", "Pitfall", "Barfight", "Fairy"};
+const char LINEBREAK = '\n';
+const string CARDS_STR[9] = {"Goblin", "Vampire", "Dragon", "Merchant", "Treasure", "Pitfall", "Barfight", "Fairy", "Gang"};
 const string PLAYERS_STR[3] = {"Rogue", "Wizard", "Fighter"};
 const int NOT_A_CARD = -1;
 const int MIN_PLAYERS = 2;
@@ -48,7 +52,7 @@ const int MAX_PLAYERS = 6;
 const int NON_LOSERS_QUEUES = 2;
 
 int indexOfCard(string str);
-std::shared_ptr<Card> intToCard(int i);
+std::shared_ptr<Card> intToCard(int i, Queue<std::shared_ptr<Card>> queue);
 std::shared_ptr<Player> intToPlayer(int i, string str, string type);
 bool checkNumber(string str);
 void printBack(Queue<std::shared_ptr<Player>> queue, int& i);
@@ -67,18 +71,38 @@ m_roundCount(1)
         throw DeckFileInvalidSize();
     }
     string str_numOfCards;
-    int j=0;
+    int lineOfException=0;
+    string strLineOfException;
+    Queue<std::shared_ptr<Card>> gangQueue;
+
     while(getline(source,cardType)){
-        j++;
-        std::string str = std::to_string(j);
+        lineOfException++;
+        strLineOfException = std::to_string(lineOfException);
         for(int i=0; i<NUM_OF_CARDS; i++){
             if(!CARDS_STR[i].compare(cardType)){
-                m_cardsQueue.pushBack(intToCard(i));
+                if (i==GANG){
+
+                    while(getline(source,cardType) && cardType.compare("EndGang")){
+                        lineOfException++;
+                        strLineOfException = std::to_string(lineOfException);
+                        for (int k = 0; k < NUM_OF_MONSTERS; ++k) {
+                            if(!CARDS_STR[k].compare(cardType)){
+                                gangQueue.pushBack(intToCard(k, gangQueue));
+                            }
+                            else if(k==NUM_OF_MONSTERS-1){
+                                throw DeckFileFormatError(strLineOfException);
+                            }
+                        }
+                    }
+                    if (cardType != "EndGang"){
+                        throw DeckFileFormatError(strLineOfException);
+                    }
+                }
+                m_cardsQueue.pushBack(intToCard(i, gangQueue));
                 break;
             }
             else if(i==NUM_OF_CARDS-1){
-                //DeckFileFormatError(str).what();
-                throw DeckFileFormatError(str);
+                throw DeckFileFormatError(strLineOfException);
             }
         }
     }
@@ -90,8 +114,7 @@ m_roundCount(1)
     bool isValid;
     do {
         printEnterTeamSizeMessage();
-        getline(cin, str_numOfPlayers, '\n');
-        //cin >> str_numOfPlayers;
+        getline(cin, str_numOfPlayers, LINEBREAK);
         isValid = checkNumber(str_numOfPlayers);
         if (isValid){
             m_numOfPlayers = std::stoi(str_numOfPlayers);
@@ -110,10 +133,8 @@ m_roundCount(1)
             printInsertPlayerMessage();
         }
         {
-            getline(cin, name, ' ');
-            getline(cin, type, '\n');
-            //cin >> name;
-            //cin >> type;
+            getline(cin, name, SPACE);
+            getline(cin, type, LINEBREAK);
             if (name.length() >= MAX_CHARACTER) {
                 i--;
                 printInvalidName();
@@ -148,13 +169,11 @@ std::shared_ptr<Player> intToPlayer(int i, string name, string type)
             return wizard;
         }
     }
-    /// TO DO - what happening while the type of the card is non of them?
-
     std::shared_ptr<Fighter> fighter (new Fighter(name, type));
     return fighter;
 }
 
-std::shared_ptr<Card> intToCard(int i)
+std::shared_ptr<Card> intToCard(int i, Queue<std::shared_ptr<Card>> queue)
 {
     switch (i) {
         case (GOBLIN): {
@@ -185,11 +204,13 @@ std::shared_ptr<Card> intToCard(int i)
             std::shared_ptr<Barfight> barfight (new Barfight());
             return barfight;
         }
+        case (FAIRY):{
+            std::shared_ptr<Fairy> fairy(new Fairy());
+            return fairy;
+        }
     }
-    /// TO DO - what happening while the type of the card is non of them?
-
-    std::shared_ptr<Fairy> fairy(new Fairy());
-    return fairy;
+    std::shared_ptr<Gang> gang(new Gang(queue));
+    return gang;
 }
 
 

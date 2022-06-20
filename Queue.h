@@ -6,6 +6,8 @@
 #define EX3_QUEUE_H
 #include "Node.h"
 #include <cassert>
+#include <memory>
+
 template <class T>
 class Queue
 {

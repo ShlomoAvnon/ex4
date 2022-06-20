@@ -5,7 +5,7 @@
 #include "Rogue.h"
 
 Pitfall::Pitfall():
-        Card(CardType::Pitfall, CardStats(IRRELEVANT, P_HP_LOSS, IRRELEVANT, IRRELEVANT, IRRELEVANT, IRRELEVANT), "Pitfall")
+        Card(CardType::NoBattle, CardStats(IRRELEVANT, P_HP_LOSS, IRRELEVANT, IRRELEVANT, IRRELEVANT, IRRELEVANT), "Pitfall")
 {}
 
 void Pitfall::applyEncounter(Player &player) const {
