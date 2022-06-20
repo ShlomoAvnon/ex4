@@ -18,7 +18,7 @@ public:
     * @return
     *      A new instance of Mtmchkin.
     */
-    Mtmchkin(const std::string fileName);
+    explicit Mtmchkin(const std::string fileName);
     
 
     Mtmchkin(const Mtmchkin&) = delete;
