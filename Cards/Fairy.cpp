@@ -3,17 +3,20 @@
 //
 
 #include "Fairy.h"
+#include "Wizard.h"
 
 Fairy::Fairy():
         Card(CardType::Battle, CardStats(IRRELEVANT, IRRELEVANT, IRRELEVANT, F_HEAL, IRRELEVANT, IRRELEVANT), "Fairy")
 {}
 
 void Fairy::applyEncounter(Player &player) const {
-    bool isWizard = (player.getType() == "Wizard");
-    if(isWizard) {
+    bool result = false;
+    const Wizard* isWizard = dynamic_cast<const Wizard*> (&player);
+    if(isWizard != nullptr) {
         player.heal(m_stats.heal);
+        result = true;
     }
-    printFairyMessage(isWizard);
+    printFairyMessage(result);
 }
 
 
