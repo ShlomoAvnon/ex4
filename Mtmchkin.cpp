@@ -47,6 +47,7 @@ const string CARDS_STR[9] = {"Goblin", "Vampire", "Dragon", "Merchant", "Treasur
 const string PLAYERS_STR[3] = {"Rogue", "Wizard", "Fighter"};
 const int MIN_PLAYERS = 2;
 const int MAX_PLAYERS = 6;
+const int MIN_CARDS = 5;
 const int NON_LOSERS_QUEUES = 2;
 
 std::shared_ptr<Card> intToCard(int i, Queue<std::shared_ptr<Card>> queue);
@@ -56,51 +57,48 @@ bool isValidName(const string name);
 std::shared_ptr<Player> intToPlayer(int i, string name, string type);
 
 Mtmchkin::Mtmchkin(const std::string fileName):
-m_roundCount(1),
-m_numOfPlayers(0)
-{
+        m_roundCount(1),
+        m_numOfPlayers(0) {
     printStartGameMessage();
 
     ifstream source(fileName);
     string cardType;
-    if(!source){
+    if (!source) {
         throw DeckFileNotFound();
     }
-    if(source.peek()==std::ifstream::traits_type::eof()){
+    if (source.peek() == std::ifstream::traits_type::eof()) {
         throw DeckFileInvalidSize();
     }
-    int lineOfException=0;
+    int lineOfException = 0;
     string strLineOfException;
     Queue<std::shared_ptr<Card>> gangQueue;
 
-    while(getline(source,cardType)){
+    while (getline(source, cardType)) {
         lineOfException++;
         strLineOfException = std::to_string(lineOfException);
-        for(int i=0; i<NUM_OF_CARDS; i++){
-            if(!CARDS_STR[i].compare(cardType)){
-                if (i==GANG){
+        for (int i = 0; i < NUM_OF_CARDS; i++) {
+            if (!CARDS_STR[i].compare(cardType)) {
+                if (i == GANG) {
 
-                    while(getline(source,cardType) && cardType.compare("EndGang")){
+                    while (getline(source, cardType) && cardType.compare("EndGang")) {
                         lineOfException++;
                         strLineOfException = std::to_string(lineOfException);
                         for (int k = 0; k < NUM_OF_MONSTERS; ++k) {
-                            if(!CARDS_STR[k].compare(cardType)){
+                            if (!CARDS_STR[k].compare(cardType)) {
                                 gangQueue.pushBack(intToCard(k, gangQueue));
                                 break;
-                            }
-                            else if(k==NUM_OF_MONSTERS-1){
+                            } else if (k == NUM_OF_MONSTERS - 1) {
                                 throw DeckFileFormatError(strLineOfException);
                             }
                         }
                     }
-                    if (cardType != "EndGang"){
+                    if (cardType != "EndGang") {
                         throw DeckFileFormatError(strLineOfException);
                     }
                 }
                 m_cardsQueue.pushBack(intToCard(i, gangQueue));
                 break;
-            }
-            else if(i==NUM_OF_CARDS-1){
+            } else if (i == NUM_OF_CARDS - 1) {
                 throw DeckFileFormatError(strLineOfException);
             }
         }
