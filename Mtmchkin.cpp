@@ -139,6 +139,7 @@ m_roundCount(1)
             if (name.length() >= MAX_CHARACTER) {
                 i--;
                 printInvalidName();
+                isValidPlayer = false;
             } else {
                 for (int p = 0; p < NUM_OF_PLAYERS; ++p) {
                     if (!(PLAYERS_STR[p].compare(type))) {
