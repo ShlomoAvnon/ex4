@@ -39,7 +39,7 @@ void Merchant::applyEncounter(Player &player) const {
     while (true) {
         getline(cin, strChoice, LINEBREAK);
         flag = checkNumber(strChoice);
-        if (flag && strChoice.length()<2) {
+        if (flag && strChoice.length()<2 && strChoice.length()>0) {
             numChoice = std::stoi(strChoice);
             if (numChoice < NUM_OF_CHOICES && numChoice >= 0) {
                 flag = true;

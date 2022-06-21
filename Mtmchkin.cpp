@@ -104,6 +104,9 @@ Mtmchkin::Mtmchkin(const std::string fileName):
         }
     }
     source.close();
+    if (m_cardsQueue.size() < MIN_CARDS) {
+        throw DeckFileInvalidSize();
+    }
 
     //gets the team size
 
@@ -175,7 +178,7 @@ std::shared_ptr<Card> intToCard(int i, Queue<std::shared_ptr<Card>> queue)
 {
     switch (i) {
         case (GOBLIN): {
-           std::shared_ptr<Goblin> goblin(new Goblin());
+            std::shared_ptr<Goblin> goblin(new Goblin());
             return goblin;
         }
         case (VAMPIRE): {
