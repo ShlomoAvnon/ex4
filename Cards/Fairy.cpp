@@ -3,7 +3,6 @@
 //
 
 #include "Fairy.h"
-#include "Wizard.h"
 
 Fairy::Fairy():
         Card(CardType::NoBattle, CardStats(IRRELEVANT, IRRELEVANT, IRRELEVANT, F_HEAL, IRRELEVANT, IRRELEVANT), "Fairy")

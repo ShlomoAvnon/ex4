@@ -3,6 +3,8 @@
 //
 
 #include "Card.h"
+#include "../Players/Wizard.h"
+
 
 #ifndef MTMCHKIN_H_FAIRY_H
 #define MTMCHKIN_H_FAIRY_H

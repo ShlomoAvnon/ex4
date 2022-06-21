@@ -3,6 +3,8 @@
 //
 
 #include "Card.h"
+#include "../Players/Fighter.h"
+
 
 #ifndef MTMCHKIN_H_BARFIGHT_H
 #define MTMCHKIN_H_BARFIGHT_H

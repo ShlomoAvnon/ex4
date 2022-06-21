@@ -3,7 +3,6 @@
 //
 
 #include "Barfight.h"
-#include "Fighter.h"
 
 Barfight::Barfight():
         Card(CardType::NoBattle, CardStats(IRRELEVANT, BF_HP_LOSS, IRRELEVANT, IRRELEVANT, IRRELEVANT, IRRELEVANT), "Barfight")

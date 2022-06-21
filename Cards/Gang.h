@@ -3,7 +3,7 @@
 //
 
 #include "Card.h"
-#include "Queue.h"
+#include "../Queue.h"
 #include <memory>
 
 #ifndef MTMCHKIN_CPP_GANG_H

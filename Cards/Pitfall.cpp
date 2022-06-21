@@ -2,7 +2,6 @@
 // Created by shlom on 09/06/2022.
 //
 #include "Pitfall.h"
-#include "Rogue.h"
 
 Pitfall::Pitfall():
         Card(CardType::NoBattle, CardStats(IRRELEVANT, P_HP_LOSS, IRRELEVANT, IRRELEVANT, IRRELEVANT, IRRELEVANT), "Pitfall")
