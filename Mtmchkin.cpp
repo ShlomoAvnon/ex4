@@ -44,6 +44,7 @@ const int NUM_OF_PLAYERS = 3;
 const int NUM_OF_MONSTERS = 3;
 const char SPACE = ' ';
 const char LINEBREAK = '\n';
+const string ABC = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const string CARDS_STR[9] = {"Goblin", "Vampire", "Dragon", "Merchant", "Treasure", "Pitfall", "Barfight", "Fairy", "Gang"};
 const string PLAYERS_STR[3] = {"Rogue", "Wizard", "Fighter"};
 const int NOT_A_CARD = -1;
@@ -56,6 +57,7 @@ std::shared_ptr<Card> intToCard(int i, Queue<std::shared_ptr<Card>> queue);
 std::shared_ptr<Player> intToPlayer(int i, string str, string type);
 bool checkNumber(string str);
 void printBack(Queue<std::shared_ptr<Player>> queue, int& i);
+bool isValidName(const string name);
 
 Mtmchkin::Mtmchkin(const std::string fileName):
 m_roundCount(1)
@@ -136,7 +138,7 @@ m_roundCount(1)
         {
             getline(cin, name, SPACE);
             getline(cin, type, LINEBREAK);
-            if (name.length() >= MAX_CHARACTER) {
+            if (!isValidName(name)) {
                 i--;
                 printInvalidName();
                 isValidPlayer = false;
@@ -313,4 +315,12 @@ void printBack(Queue<std::shared_ptr<Player>> queue, int& i)
     printBack(queue, i);
     printPlayerLeaderBoard(i, *player);
     i++;
+}
+
+bool isValidName(const string name)
+{
+    if(name.length() >= MAX_CHARACTER){
+        return false;
+    }
+    return name.find_first_not_of(ABC) == std::string::npos;
 }
