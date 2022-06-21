@@ -50,10 +50,10 @@ const int MAX_PLAYERS = 6;
 const int NON_LOSERS_QUEUES = 2;
 
 std::shared_ptr<Card> intToCard(int i, Queue<std::shared_ptr<Card>> queue);
-std::shared_ptr<Player> intToPlayer(int i, string str, string type);
 bool checkNumber(string str);
 void printBack(Queue<std::shared_ptr<Player>> queue, int& i);
 bool isValidName(const string name);
+std::shared_ptr<Player> intToPlayer(int i, string name, string type);
 
 Mtmchkin::Mtmchkin(const std::string fileName):
 m_roundCount(1),
@@ -110,12 +110,12 @@ m_numOfPlayers(0)
     //gets the team size
 
     string str_numOfPlayers;
-    bool isValid;
+    bool isValid= false;
     do {
         printEnterTeamSizeMessage();
         getline(cin, str_numOfPlayers, LINEBREAK);
         isValid = checkNumber(str_numOfPlayers);
-        if (isValid){
+        if (isValid && str_numOfPlayers.length()){
             m_numOfPlayers = std::stoi(str_numOfPlayers);
         }
         if (m_numOfPlayers < MIN_PLAYERS || m_numOfPlayers > MAX_PLAYERS) {
