@@ -25,7 +25,6 @@ using std::cin;
 using std::cout;
 using std::endl;
 using std::getline;
-const int MAX_LENGTH = 16;
 const int NUM_OF_CARDS = 9;
 const int GOBLIN = 0;
 const int VAMPIRE = 1;
@@ -38,7 +37,6 @@ const int FAIRY = 7;
 const int GANG = 8;
 const int ROGUE = 0;
 const int WIZARD = 1;
-const int FIGHTER = 2;
 const int MAX_CHARACTER = 15;
 const int NUM_OF_PLAYERS = 3;
 const int NUM_OF_MONSTERS = 3;
@@ -47,12 +45,10 @@ const char LINEBREAK = '\n';
 const string ABC = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const string CARDS_STR[9] = {"Goblin", "Vampire", "Dragon", "Merchant", "Treasure", "Pitfall", "Barfight", "Fairy", "Gang"};
 const string PLAYERS_STR[3] = {"Rogue", "Wizard", "Fighter"};
-const int NOT_A_CARD = -1;
 const int MIN_PLAYERS = 2;
 const int MAX_PLAYERS = 6;
 const int NON_LOSERS_QUEUES = 2;
 
-int indexOfCard(string str);
 std::shared_ptr<Card> intToCard(int i, Queue<std::shared_ptr<Card>> queue);
 std::shared_ptr<Player> intToPlayer(int i, string str, string type);
 bool checkNumber(string str);
@@ -60,7 +56,8 @@ void printBack(Queue<std::shared_ptr<Player>> queue, int& i);
 bool isValidName(const string name);
 
 Mtmchkin::Mtmchkin(const std::string fileName):
-m_roundCount(1)
+m_roundCount(1),
+m_numOfPlayers(0)
 {
     printStartGameMessage();
 
@@ -72,7 +69,6 @@ m_roundCount(1)
     if(source.peek()==std::ifstream::traits_type::eof()){
         throw DeckFileInvalidSize();
     }
-    string str_numOfCards;
     int lineOfException=0;
     string strLineOfException;
     Queue<std::shared_ptr<Card>> gangQueue;

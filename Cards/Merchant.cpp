@@ -22,6 +22,8 @@ const int PRICE_BUFF = 10;
 const int MERCHANT_HEAL = 1;
 const int MERCHANT_BUFF = 1;
 const int NOT_ENOUGH_MONEY = 0;
+const int NUM_OF_CHOICES = 3;
+const char LINEBREAK = '\n';
 
 
 
@@ -31,20 +33,23 @@ Merchant::Merchant():
 
 void Merchant::applyEncounter(Player &player) const {
     string strChoice;
-    int numChoice;
-
-    bool isValid = false;
+    int numChoice=NUM_OF_CHOICES+1;
+    bool flag = false;
     printMerchantInitialMessageForInteractiveEncounter(cout, player.getName(), player.get_money());
-    while (!isValid) {
-        getline(cin, strChoice, '\n');
-        //cin >> strChoice;
-        isValid = checkNumber(strChoice);
-        if (!isValid) {
-            printInvalidInput();
+    while (true) {
+        getline(cin, strChoice, LINEBREAK);
+        flag = checkNumber(strChoice);
+        if (flag) {
+            numChoice = std::stoi(strChoice);
+            if (numChoice < NUM_OF_CHOICES && numChoice >= 0) {
+                flag = true;
+                break;
+            }
         }
+        printInvalidInput();
     }
-    if (isValid) {
-        numChoice = std::stoi(strChoice);
+
+    if (flag) {
         int price;
         switch (numChoice) {
             case BUY_NOTHING:
@@ -58,7 +63,6 @@ void Merchant::applyEncounter(Player &player) const {
                 else {
                     printMerchantInsufficientCoins(cout);
                     price = NOT_ENOUGH_MONEY;
-                    numChoice = NOT_ENOUGH_MONEY;
                 }
                 break;
             case BUY_BUFF:
@@ -69,7 +73,6 @@ void Merchant::applyEncounter(Player &player) const {
                 else {
                     printMerchantInsufficientCoins(cout);
                     price = NOT_ENOUGH_MONEY;
-                    numChoice = NOT_ENOUGH_MONEY;
                 }
                 break;
         }
