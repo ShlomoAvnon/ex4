@@ -258,33 +258,6 @@ bool Mtmchkin::isGameOver() const {
     return (m_winnersPlayers.size()+ m_losersPlayers.size()==m_numOfPlayers);
 }
 
-/*Mtmchkin::~Mtmchkin() {
-    while(!m_losersPlayers.isEmpty())
-    {
-        delete m_losersPlayers.front();
-        m_losersPlayers.popFront();
-    }
-    while(!m_cardsQueue.isEmpty())
-    {
-        delete m_cardsQueue.front();
-        m_cardsQueue.popFront();
-    }
-    while(!m_winnersPlayers.isEmpty())
-    {
-        delete m_winnersPlayers.front();
-        m_winnersPlayers.popFront();
-    }
-    while(!m_winnersPlayers.isEmpty())
-    {
-       delete m_winnersPlayers.front();
-        m_winnersPlayers.popFront();
-    }
-    while (!m_playersQueue.isEmpty())
-    {
-        delete m_playersQueue.front();
-        m_playersQueue.popFront();
-    }
-}*/
 
 void Mtmchkin::printLeaderBoard() const {
     printLeaderBoardStartMessage();

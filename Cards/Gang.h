@@ -13,6 +13,7 @@ class Gang : public Card{
 public:
     Gang(Queue<std::shared_ptr<Card>> queue);
     ~Gang() override =default;
+    // Copy C'tor & operator= are coming from Card
 
     void applyEncounter(Player& player) const override;
 

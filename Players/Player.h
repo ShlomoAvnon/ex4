@@ -17,19 +17,6 @@ const int MAX_LEVEL = 10;
 class Player{
 
 public:
-
-    /*
-     * C'tor of Player class
-     *
-     * @param name - The name of the player.
-     * @param hp - The amount of the health point of the player, default is MAX_HP
-     * @param force - The amount of the force of the player, default is STARTING_FORCE
-     * @return
-     *      A new Player.
-    */
-    explicit Player(const string name, const string type, int hp = MAX_HP, int force = STARTING_FORCE);
-
-
     /*
      * Here we are explicitly telling the compiler to use the default methods
     */
@@ -141,6 +128,19 @@ public:
     string getName();
 
 protected:
+    /*
+     * C'tor of Player class
+     *
+     * @param name - The name of the player.
+     * @param hp - The amount of the health point of the player, default is MAX_HP
+     * @param force - The amount of the force of the player, default is STARTING_FORCE
+     * @return
+     *      A new Player.
+    */
+    explicit Player(const string name, const string type, int hp = MAX_HP, int force = STARTING_FORCE);
+
+
+
     const std::string m_name;
     const std::string m_type;
     int m_maxHP;
